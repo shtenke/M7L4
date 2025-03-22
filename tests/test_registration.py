@@ -36,6 +36,33 @@ def test_add_new_user(setup_database, connection):
     user = cursor.fetchone()
     assert user, "Пользователь должен быть добавлен в базу данных."
 
+def test1(setup_database):
+    username = 'shtenke'
+    test = add_user(username,'shtenke@mail.ru','34564357')
+    assert test == False
+    
+def test2(setup_database):
+    username = 'shtenke'
+    password = 'etrhteh'
+    authenticate_user(username,password)
+    assert 'Авторизация успешна.'
+
+def test3(setup_database):
+    username = 'shtenke2'
+    password = 'etrhteh'
+    authenticate_user(username,password)
+    assert 'Неверный логин или пароль.'
+
+def test4(setup_database):
+    username = 'shtenke'
+    password = 'etrhtehrethrytukyuk'
+    authenticate_user(username,password)
+    assert 'Неверный логин или пароль.'
+
+def test5(setup_database,capsys):
+    display_users()
+    captured = capsys.readouterr()
+    assert "Логин: shtenke, Электронная почта: w4gergh" in captured.out
 # Возможные варианты тестов:
 """
 Тест добавления пользователя с существующим логином.
